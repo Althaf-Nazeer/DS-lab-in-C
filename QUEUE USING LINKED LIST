@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<stdlib.h>
+ 
+struct node{
+    int data;
+    struct node *link;
+};
+ 
+struct node *front,*rear;
+ 
+void DISPLAY(){
+    struct node *ptr;
+    if(front==NULL){
+        printf("THE QUEUE IS EMPTY");
+    }
+    else{
+        printf("THE QUEUE ELEMENTS ARE\n");
+        ptr=front;
+        while(ptr!=NULL){
+            printf("%d\t",ptr->data);
+            ptr=ptr->link;
+        }
+    }
+     
+}
+
+void ENQUEUE(int item){
+    struct node *new;
+    new=(struct node *) malloc(sizeof(struct node));
+    new->data=item;
+    new->link=NULL;
+    if(front==NULL){
+        front=rear=new;
+    }
+    else{
+        rear->link=new;
+        rear=new;
+    }
+    
+    DISPLAY();
+}
+
+
+void DEQUEUE(){
+    struct node *temp;
+    if(front==NULL){
+        printf("THE QUEUE IS EMPTY");
+    }
+    else{
+        temp=front;
+        printf("THE POPPED ELEMENT IS %d",front->data);
+        front=front->link;
+        free(temp);
+    }
+    DISPLAY();
+    
+    
+}
+ 
+ 
+ 
+ 
+void main(){
+    int item,opt;
+    do{
+        printf(" \n ENTER 1 ENQUEUE \n ENTER 2 TO DEQUEUE \n ENTER 3 TO DISPLAY THE QUEUE \n ENTER 4 TO EXIT");
+        scanf("%d",&opt);
+        switch(opt){
+            case 1: printf("ENTER THE ELEMENT TO PUSH");
+                    scanf("%d",&item);
+                    ENQUEUE(item);
+                    break;
+            case 2: DEQUEUE();
+                    break;
+            case 3: DISPLAY();
+                    break;
+            case 4: printf("THE PROGRAM HAS ENDED");
+                    break;
+            
+        }
+    }while(opt!=4);
+ }
